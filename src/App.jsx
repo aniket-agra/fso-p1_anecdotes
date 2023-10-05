@@ -8,6 +8,16 @@ function Button ({text, handler}) {
   )
 }
 
+function TopAnecdote({anecdote, votes}) {
+  return (
+    <>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdote}</p>
+      <p>has {votes} votes</p>
+    </>
+  );
+}
+
 function App() {
   const [index, setIndex] = useState(0);
 
@@ -35,12 +45,19 @@ function App() {
     setVotes(newVotes);
   }
 
+  let maxVoteIndex = 0;
+  for (let i = 1; i < votes.length; i++) {
+    if (votes[i] > votes[maxVoteIndex])  
+      maxVoteIndex = i;
+  }
+
   return (
     <>
       <p>{anecdotes[index]}</p>
       <p>has {votes[index]} votes</p>
       <Button text = "vote" handler = {addVote} />
       <Button text = "next anecdote" handler = {changeIndex} />
+      <TopAnecdote anecdote = {anecdotes[maxVoteIndex]} votes = {votes[maxVoteIndex]} />
     </>
   )
 
