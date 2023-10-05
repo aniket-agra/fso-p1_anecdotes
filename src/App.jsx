@@ -22,14 +22,24 @@ function App() {
     7 : 'The only way to go fast, is to go well.'
   };
 
+  const [votes, setVotes] = useState(Object.keys(anecdotes).map(indx => 0));
+
   function changeIndex() {
     let newIndex = Math.floor(Object.keys(anecdotes).length * Math.random());
     setIndex(newIndex);
   }
 
+  function addVote() {
+    let newVotes = [...votes];
+    newVotes[index] += 1;
+    setVotes(newVotes);
+  }
+
   return (
     <>
       <p>{anecdotes[index]}</p>
+      <p>has {votes[index]} votes</p>
+      <Button text = "vote" handler = {addVote} />
       <Button text = "next anecdote" handler = {changeIndex} />
     </>
   )
